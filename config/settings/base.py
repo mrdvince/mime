@@ -77,10 +77,7 @@ THIRD_PARTY_APPS = [
     "corsheaders",
 ]
 
-LOCAL_APPS = [
-    "mime.users",
-    # Your stuff: custom apps go here
-]
+LOCAL_APPS = ["mime.users", "mime.mime"]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
