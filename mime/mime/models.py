@@ -1,54 +1,52 @@
-"""
-[mime models]
-id: uuid
-user_id => FK->user.id
-name: str
-created at: dt
-no_dumps: int -> objects found in photo
-dumps_name: str -> single name currently since this is a classification model
-location of dumpsite -> [city and estate]
-"""
+"""This module contains the MIME model classes.
 
-import uuid
+Class names include:
+- Potholes
+- Dumping/Littering
+- Accidents
+- Flooded roads
+- Bad drainages
 
-from django.conf import settings
+"""
 from django.db import models
 
-
-class Location(models.Model):
-    """Location model
-
-    Model used to store the mime location details
-    """
-
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    city = models.CharField(max_length=50)
-    estate = models.CharField(max_length=50, blank=True, null=True)
-
-    def __str__(self) -> str:
-        return self.city + ", " + self.estate if self.estate else self.city
+TOWNS = (
+    ("nairobi", "Nairobi"),
+    ("mombasa", "Mombasa"),
+    ("kisumu", "Kisumu"),
+    ("eldoret", "Eldoret"),
+    ("makindu", "Makindu"),
+    ("marsabit", "Marsabit"),
+    ("kisii", "Kisii"),
+    ("nyamira", "Nyamira"),
+    ("migori", "Migori"),
+    ("muhanga", "Muhanga"),
+    ("nyeri", "Nyeri"),
+    ("kiambu", "Kiambu"),
+    ("nyandarua", "Nyandarua"),
+    ("machakos", "Machakos"),
+    ("makueni", "Makueni"),
+)
 
 
 class Mime(models.Model):
     """Default classification model"""
 
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True
+    owner = models.ForeignKey(
+        "auth.User", related_name="mimes", on_delete=models.SET_NULL, null=True
     )
-    location = models.ForeignKey(Location, on_delete=models.SET_NULL, null=True)
-    # Calling it dumps, can't figure out a name to group the classes to
-    no_dumps = models.PositiveIntegerField(default=1)
-    dumps_name = models.CharField(max_length=50)
+    created_at = models.DateTimeField(auto_now_add=True)
+    no_inf = models.PositiveIntegerField(default=1)
+    inf_name = models.CharField(max_length=50)
+    city = models.CharField(choices=TOWNS, default="nairobi", max_length=50)
+    estate = models.CharField(max_length=50, blank=True, null=True)
+
+    class Meta:
+        ordering = ("created_at",)
 
     def __str__(self):
-        """Class names include:
-        - Potholes
-        - Dumping/Littering
-        - Accidents
-        - Flooded roads
-        - Bad drainages
-
+        """
+        String for representing the Model object (in Admin site etc.)
         :return: name of the classified object
         """
-        return self.dumps_name
+        return self.inf_name

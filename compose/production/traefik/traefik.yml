@@ -15,9 +15,6 @@ entryPoints:
     # https
     address: ":443"
 
-  flower:
-    address: ":5555"
-
 certificatesResolvers:
   letsencrypt:
     # https://docs.traefik.io/master/https/acme/#lets-encrypt
@@ -31,21 +28,12 @@ certificatesResolvers:
 http:
   routers:
     web-secure-router:
-      rule: "Host(`mime.mrdvince.me`)"
+      rule: "Host(`mime.mrvince.me`)"
       entryPoints:
         - web-secure
       middlewares:
         - csrf
       service: django
-      tls:
-        # https://docs.traefik.io/master/routing/routers/#certresolver
-        certResolver: letsencrypt
-
-    flower-secure-router:
-      rule: "Host(`mime.mrdvince.me`)"
-      entryPoints:
-        - flower
-      service: flower
       tls:
         # https://docs.traefik.io/master/routing/routers/#certresolver
         certResolver: letsencrypt
@@ -62,11 +50,6 @@ http:
       loadBalancer:
         servers:
           - url: http://django:5000
-
-    flower:
-      loadBalancer:
-        servers:
-          - url: http://flower:5555
 
 providers:
   # https://docs.traefik.io/master/providers/file/

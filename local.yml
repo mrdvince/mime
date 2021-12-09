@@ -5,7 +5,7 @@ volumes:
   local_postgres_data_backups: {}
 
 services:
-  django: &django
+  django:
     build:
       context: .
       dockerfile: ./compose/local/django/Dockerfile
@@ -13,7 +13,6 @@ services:
     container_name: django
     depends_on:
       - postgres
-      - redis
       - mailhog
     volumes:
       - .:/app:z
@@ -23,11 +22,6 @@ services:
     ports:
       - "8000:8000"
     command: /start
-    labels:
-      - "virtual.host=local.dev"
-      - "virtual.port=8000"
-      - "virtual.tls-email=/root/certs/local.dev+5.pem /root/certs/local.dev+5-key.pem"
-
 
   postgres:
     build:
@@ -64,57 +58,3 @@ services:
     container_name: mailhog
     ports:
       - "8025:8025"
-
-  redis:
-    image: redis:6
-    container_name: redis
-
-  celeryworker:
-    <<: *django
-    image: mime_local_celeryworker
-    container_name: celeryworker
-    depends_on:
-      - redis
-      - postgres
-      - mailhog
-    ports: []
-    command: /start-celeryworker
-
-  celerybeat:
-    <<: *django
-    image: mime_local_celerybeat
-    container_name: celerybeat
-    depends_on:
-      - redis
-      - postgres
-      - mailhog
-    ports: []
-    command: /start-celerybeat
-
-  flower:
-    <<: *django
-    image: mime_local_flower
-    container_name: flower
-    ports:
-      - "5555:5555"
-    command: /start-flower
-
-  caddy:
-    image: "wemakeservices/caddy-gen:latest"
-    volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro # needs socket to read events
-      - ./certs:/root/certs # to sync mkcert certificates to Caddy
-    ports:
-      - "80:80"
-      - "443:443"
-    depends_on:
-      - django
-
-  pgadmin:
-    image: dpage/pgadmin4
-    depends_on:
-      - postgres
-    env_file:
-      - ./.envs/.local/.postgres
-    ports:
-      - 5050:5050
