@@ -7,8 +7,8 @@ User = get_user_model()
 
 
 class MimeSerializer(serializers.ModelSerializer):
-    mime = serializers.PrimaryKeyRelatedField(many=True, queryset=Mime.objects.all())
+    owner = serializers.ReadOnlyField(source="owner.username")
 
     class Meta:
         model = Mime
-        fields = ["id", "username", "mime"]
+        fields = ["id", "owner", "no_inf", "inf_name", "city", "estate"]

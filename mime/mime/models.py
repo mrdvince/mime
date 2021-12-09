@@ -8,6 +8,7 @@ Class names include:
 - Bad drainages
 
 """
+from django.contrib.auth import get_user_model
 from django.db import models
 
 TOWNS = (
@@ -28,12 +29,14 @@ TOWNS = (
     ("makueni", "Makueni"),
 )
 
+User = get_user_model()
+
 
 class Mime(models.Model):
     """Default classification model"""
 
     owner = models.ForeignKey(
-        "auth.User", related_name="mimes", on_delete=models.SET_NULL, null=True
+        User, related_name="mimes", on_delete=models.SET_NULL, null=True
     )
     created_at = models.DateTimeField(auto_now_add=True)
     no_inf = models.PositiveIntegerField(default=1)
