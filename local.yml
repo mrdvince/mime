@@ -23,6 +23,11 @@ services:
     ports:
       - "8000:8000"
     command: /start
+    labels:
+      - "virtual.host=local.dev"
+      - "virtual.port=8000"
+      - "virtual.tls-email=/root/certs/local.dev+5.pem /root/certs/local.dev+5-key.pem"
+
 
   postgres:
     build:
@@ -35,6 +40,8 @@ services:
       - local_postgres_data_backups:/backups:z
     env_file:
       - ./.envs/.local/.postgres
+    ports:
+      - "5432:5432"
 
   docs:
     image: mime_local_docs
@@ -91,3 +98,23 @@ services:
     ports:
       - "5555:5555"
     command: /start-flower
+
+  caddy:
+    image: "wemakeservices/caddy-gen:latest"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro # needs socket to read events
+      - ./certs:/root/certs # to sync mkcert certificates to Caddy
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - django
+
+  pgadmin:
+    image: dpage/pgadmin4
+    depends_on:
+      - postgres
+    env_file:
+      - ./.envs/.local/.postgres
+    ports:
+      - 5050:5050

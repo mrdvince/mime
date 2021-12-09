@@ -330,3 +330,4 @@ mime/media/
 .ipython/
 .env
 .envs/*
+certs/*
