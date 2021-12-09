@@ -41,7 +41,7 @@ if settings.DEBUG:
 # API URLS
 urlpatterns += [
     # API base url
-    path("api/", include("mime.mime.urls")),
+    path("api/", include("mime.urls", namespace="api")),
     # DRF auth token
     path("auth-token/", obtain_auth_token),
 ]

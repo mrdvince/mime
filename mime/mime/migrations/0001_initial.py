@@ -15,18 +15,57 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Mime',
+            name="Mime",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('no_inf', models.PositiveIntegerField(default=1)),
-                ('inf_name', models.CharField(max_length=50)),
-                ('city', models.CharField(choices=[('nairobi', 'Nairobi'), ('mombasa', 'Mombasa'), ('kisumu', 'Kisumu'), ('eldoret', 'Eldoret'), ('makindu', 'Makindu'), ('marsabit', 'Marsabit'), ('kisii', 'Kisii'), ('nyamira', 'Nyamira'), ('migori', 'Migori'), ('muhanga', 'Muhanga'), ('nyeri', 'Nyeri'), ('kiambu', 'Kiambu'), ('nyandarua', 'Nyandarua'), ('machakos', 'Machakos'), ('makueni', 'Makueni')], default='nairobi', max_length=50)),
-                ('estate', models.CharField(blank=True, max_length=50, null=True)),
-                ('owner', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='mimes', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("no_inf", models.PositiveIntegerField(default=1)),
+                ("inf_name", models.CharField(max_length=50)),
+                (
+                    "city",
+                    models.CharField(
+                        choices=[
+                            ("nairobi", "Nairobi"),
+                            ("mombasa", "Mombasa"),
+                            ("kisumu", "Kisumu"),
+                            ("eldoret", "Eldoret"),
+                            ("makindu", "Makindu"),
+                            ("marsabit", "Marsabit"),
+                            ("kisii", "Kisii"),
+                            ("nyamira", "Nyamira"),
+                            ("migori", "Migori"),
+                            ("muhanga", "Muhanga"),
+                            ("nyeri", "Nyeri"),
+                            ("kiambu", "Kiambu"),
+                            ("nyandarua", "Nyandarua"),
+                            ("machakos", "Machakos"),
+                            ("makueni", "Makueni"),
+                        ],
+                        default="nairobi",
+                        max_length=50,
+                    ),
+                ),
+                ("estate", models.CharField(blank=True, max_length=50, null=True)),
+                (
+                    "owner",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="mimes",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'ordering': ('created_at',),
+                "ordering": ("created_at",),
             },
         ),
     ]

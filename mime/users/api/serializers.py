@@ -7,6 +7,10 @@ User = get_user_model()
 
 
 class UserSerializer(serializers.ModelSerializer):
+    """
+    Serializer for the User model (used for the API)
+    """
+
     mime = serializers.PrimaryKeyRelatedField(many=True, queryset=Mime.objects.all())
 
     class Meta:
