@@ -1,12 +1,14 @@
-from django.contrib.auth import get_user_model
 from rest_framework import generics, permissions
 
 from mime.mime.models import Mime
 from mime.mime.serializers import MimeSerializer
-from mime.users.api.serializers import UserSerializer
 
 
 class MimeList(generics.ListCreateAPIView):
+    """
+    List all mimes, or create a new mime.
+    """
+
     queryset = Mime.objects.all()
     serializer_class = MimeSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
@@ -15,20 +17,17 @@ class MimeList(generics.ListCreateAPIView):
         serializer.save(owner=self.request.user)
 
 
+mime_list = MimeList.as_view()
+
+
 class MimeDetail(generics.RetrieveUpdateDestroyAPIView):
+    """
+    Retrieve, update or delete a mime instance.
+    """
+
     queryset = Mime.objects.all()
     serializer_class = MimeSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 
-User = get_user_model()
-
-
-class UserList(generics.ListAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-
-
-class UserDetail(generics.RetrieveAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+mime_detail = MimeDetail.as_view()
