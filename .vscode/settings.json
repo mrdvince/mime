@@ -4,4 +4,5 @@
   "python.linting.pylintArgs": [
     "--enable=W0614"
   ],
+  "restructuredtext.preview.sphinx.disabled": true,
 }

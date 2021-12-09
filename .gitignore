@@ -276,3 +276,5 @@ mime/media/
 .env
 .envs/*
 !.envs/.local/
+*.jpg
+.ipynb_checkpoints/
