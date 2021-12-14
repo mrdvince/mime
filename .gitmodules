@@ -1,0 +1,3 @@
+[submodule "ajime"]
+	path = ajime
+	url = git@github.com:mrdvince/ajime.git
