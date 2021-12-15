@@ -138,8 +138,11 @@
                           <div class="elementor-widget-container">
                             <h3 class="elementor-heading-title elementor-size-default">
                               My Runs</h3>
+                              <ul>
+                              </ul>
+                            </div>
                           </div>
-                        </div>
+                          {% for mime in user_obj.mimes.values %}
                         <section
                           class="elementor-section elementor-inner-section elementor-element elementor-element-1c78079 elementor-section-boxed elementor-section-height-default elementor-section-height-default"
                           data-id="1c78079" data-element_type="section">
@@ -153,10 +156,10 @@
                                   data-id="88bbf69" data-element_type="widget" data-widget_type="image.default">
                                   <div class="elementor-widget-container">
                                     <img width="300" height="200"
-                                      src="{% static 'images/car-traffic-city-6810885-300x200.jpg' %}"
+                                      src="{% get_media_prefix %}{{mime.upload}}"
                                       class="attachment-medium size-medium" alt="car, traffic, city-6810885.jpg"
                                       loading="lazy"
-                                      srcset="{% static 'images/car-traffic-city-6810885-300x200.jpg' %} 300w, {% static 'images/car-traffic-city-6810885-1024x682.jpg' %} 1024w, {% static 'images/car-traffic-city-6810885-768x512.jpg' %} 768w, {% static 'images/car-traffic-city-6810885.jpg' %} 1280w"
+                                      srcset="{% get_media_prefix %}{{mime.upload}} 300w, {% get_media_prefix %}{{mime.upload}} 1024w, {% get_media_prefix %}{{mime.upload}} 768w, {% static mime.upload %} 1280w"
                                       sizes="(max-width: 300px) 100vw, 300px" />
                                   </div>
                                 </div>
@@ -175,32 +178,31 @@
                                         <span class="elementor-icon-list-icon">
                                           <i aria-hidden="true" class="fas fa-check"></i>
                                         </span>
-                                        <span class="elementor-icon-list-text">Name</span>
+                                        <span class="elementor-icon-list-text">{{ mime.inf_name }}</span>
                                       </li>
                                       <li class="elementor-icon-list-item">
                                         <span class="elementor-icon-list-icon">
                                           <i aria-hidden="true" class="fas fa-check"></i>
                                         </span>
-                                        <span class="elementor-icon-list-text">City</span>
+                                        <span class="elementor-icon-list-text">{{ mime.city }}</span>
                                       </li>
                                       <li class="elementor-icon-list-item">
                                         <span class="elementor-icon-list-icon">
                                           <i aria-hidden="true" class="fas fa-check"></i>
                                         </span>
-                                        <span class="elementor-icon-list-text">Estate</span>
+                                        <span class="elementor-icon-list-text"> {{ mime.estate }} </span>
                                       </li>
                                       <li class="elementor-icon-list-item">
                                         <span class="elementor-icon-list-icon">
                                           <i aria-hidden="true" class="fas fa-check"></i>
                                         </span>
-                                        <span class="elementor-icon-list-text">Somethin</span>
+                                        <span class="elementor-icon-list-text">{{ mime.created_at }}</span>
                                       </li>
                                       <li class="elementor-icon-list-item">
                                         <span class="elementor-icon-list-icon">
                                           <i aria-hidden="true" class="fas fa-check"></i>
                                         </span>
-                                        <span class="elementor-icon-list-text">Somothing
-                                          else</span>
+                                        <span class="elementor-icon-list-text">{{ user_obj.username }}</span>
                                       </li>
                                     </ul>
                                   </div>
@@ -209,6 +211,7 @@
                             </div>
                           </div>
                         </section>
+                        {% endfor %}
                       </div>
                     </div>
                   </div>
