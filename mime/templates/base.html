@@ -176,6 +176,11 @@
                             {# URL provided by django-allauth/account/urls.py #}
                             <a href="{% url 'account_logout' %}" class="menu-link">{% translate "Sign Out" %}</a>
                           </li>
+                          <li id="menu-item-24493"
+                          class="menu-item menu-item-type-custom menu-item-object-custom menu-item-24493">
+                          <a href="{% url 'api:run-inf' %}" class="menu-link">New Run</a>
+                        </li>
+
                           {% else %}
                           <li id="menu-item-113"
                             class="menu-item menu-item-type-post_type menu-item-object-page menu-item-113">
@@ -209,10 +214,6 @@
                             </ul>
                           </li> -->
 
-                          <li id="menu-item-24493"
-                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-24493">
-                            <a href="#" class="menu-link">New Run</a>
-                          </li>
 
 
                         </ul>
