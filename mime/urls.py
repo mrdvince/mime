@@ -4,6 +4,8 @@ Behold the power of the "root" urls.py file. 😂😂
 
 Disclaimer: don't do this (or do).
 """
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
 
@@ -33,4 +35,7 @@ urlpatterns += [
     path("mime/", mime_views.mime_list, name="mime-list"),
     path("mime/<int:pk>/", mime_views.mime_detail, name="mime-detail"),
 ]
+urlpatterns += [
+    path("run/", mime_views.run, name="run-inf"),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns = format_suffix_patterns(urlpatterns)
