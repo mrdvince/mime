@@ -43,9 +43,10 @@ class Mime(models.Model):
     inf_name = models.CharField(max_length=50)
     city = models.CharField(choices=TOWNS, default="nairobi", max_length=50)
     estate = models.CharField(max_length=50, blank=True, null=True)
+    upload = models.ImageField(upload_to="uploads/")
 
     class Meta:
-        ordering = ("created_at",)
+        ordering = ("-created_at",)
 
     def __str__(self):
         """
