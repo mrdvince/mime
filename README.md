@@ -17,6 +17,59 @@ This is me goofing around and trying to learn some Django the only way there is,
 
 > I also don't have a job so need to do something with my life. 😏😏
 
+
+# Environment
+This a django based "web app" that uses a Densenet 121 model trained to classify 6 classes of objects.
+
+The classification routes aren't wired up but should be pretty straightfoward to do that. I like swagger UI docs so I have those included as well.
+The design was done with wp elementor and just dumped the html and wired it up with django views. (pretty "low energy" endeavor).
+
+### Classes
+- Potholes
+- Dumping
+- Accidents
+- Flooded
+- Bad drainage
+- Construction
+
+The training code repo can be found in this [linked repo](https://github.com/mrdvince/ajime). Which also included as a submodule here.
+# Getting started
+### Dependencies
+1. Docker and docker compose
+For windows download docker desktop and that should get sorted out.
+
+#### Linux
+
+```bash
+# Download Docker
+curl -fsSL get.docker.com -o get-docker.sh
+# Install Docker using the stable channel (instead of the default "edge")
+CHANNEL=stable sh get-docker.sh
+# Remove Docker install script
+rm get-docker.sh
+
+# Docker compose
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+```
+
+2. Clone the repository (if you haven't already)
+> Using recursive to include the submodule repos in the cloned directory.
+
+```bash
+git clone --recursive https://github.com/mrdvince/mime
+cd mime
+```
+
+3. Running it
+Once cloned is done simply use docker to run it and evrything should just work.
+
+The model is included in the ajime submodule, can be retrained or completely swapped out if needed.
+
+```bash
+# This should get you up and running
+docker-compose -f local.yml up -d --build
+
+```
 ## Settings
 
 ### Setting Up Your Users
@@ -46,7 +99,12 @@ coverage report:
 
     $ pytest
 
-### Docker
+## Screenshots are nice
+<img src="images/lp.png"/> <img src="images/inf.png"/>
 
-See detailed [cookiecutter-django Docker
-documentation](http://cookiecutter-django.readthedocs.io/en/latest/deployment-with-docker.html)
+
+## Appendix
+
+1. Using cookie-cutter django was a bit overkill for this.
+2. Shelving this and moving on to other shiny things
+3. Will be trying to write a post about this so check it out [mrdvince](mrdvince.me)
